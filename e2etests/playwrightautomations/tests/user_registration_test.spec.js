@@ -1,26 +1,37 @@
 import { test, expect } from '@playwright/test';
-import RegistrationPage from '../pages/RegistrationPage'
+import HomePage from '../pages/HomePage';
+import RegistrationPage from '../pages/RegistrationPage';
+import { waitForDebugger } from 'inspector';
+import MyAccountPage from '../pages/MyAccountPage';
+import Utils from '../../../utils/Utils';
 
-test('User Registration', async ({ page }) => {
+test('User Registration and Authentication', async ({ page }) => {
+    const homePage = new HomePage(page)
     const registrationPage = new RegistrationPage(page);
-    
-    await registrationPage.navigate();
+    const myAccountPage = new MyAccountPage(page);
+    const randomNewEmailAddress = Utils.generateRandomEmail(7);
 
-    await registrationPage.fillRegistrationForm('Alex', 'Kokkinidis', 'test@adaptavist.com', 'Pass12345', 'Different_Pass12345');
-    await registrationPage.clickOnCreateAccountButton();
+    await homePage.navigate();
+    await homePage.clickAccountCreationButton();
+
+    await registrationPage.fillRegistrationForm(
+        'Alex', 'Kokkinidis', randomNewEmailAddress, 'Pass12345', 'Different_Pass12345'
+    );
+    await registrationPage.clickAccountCreateSubmitButton();
     await registrationPage.waitForUmatchingPasswordError();
 
-    //   // Ensure the registration form does not accept different inputs in password fields.
-    //   await page.fill('#confirmPasswordInput', 'DifferentPassword123');  
+    await registrationPage.fillRegistrationForm(
+        'Alex', 'Kokkinidis', randomNewEmailAddress, randomNewEmailAddress, randomNewEmailAddress
+    );
+    await registrationPage.clickAccountCreateSubmitButton();
+    await registrationPage.waitForSameEmailPasswordError();
 
-    //   // Ensure all the mandatory fields are completed.
-    //   await page.fill('#confirmPasswordInput', 'ValidPassword123');
-
-    //   // Ensure the form submits successfully and creates a new account.
-    //   await Promise.all([
-    //     page.waitForNavigation(),
-    //     page.click('#registerButton'),
-    //   ]);
+    await registrationPage.fillRegistrationForm(
+        'Alex', 'Kokkinidis', randomNewEmailAddress, 'Pass12345', 'Pass12345'
+    );
+    await registrationPage.clickAccountCreateSubmitButton();
+    await myAccountPage.assertRedirectedToExpectedURL();
+    await myAccountPage.signOut();
 
     //   // Ensure the user is logged in and navigated to their account page.
     //   expect(page.url()).toBe('https://your-ecommerce-website.com/account');

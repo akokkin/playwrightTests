@@ -1,17 +1,18 @@
-class HomePage {
-    constructor(page) {
-      this.page = page;
-      this.url = 'https://magento.softwaretestingboard.com/';
-      this.profileLinkSelector = 'body > div.page-wrapper > header > div.panel.wrapper > div > ul > li:nth-child(3) > a';
-    }
-  
-    async navigate() {
-      await this.page.goto(this.url);
-    }
-  
-    async clickAccountCreationButton() {
-        await this.page.click(this.accountCreationButtonSelector);
-      }
+import { expect } from '@playwright/test';
+
+export default class HomePage {
+  url = 'https://magento.softwaretestingboard.com/';
+
+  constructor(page) {
+    this.page = page;
   }
-  
-  module.exports = HomePage;
+
+  async navigate() {
+    return this.page.goto(this.url);
+  }
+
+  async clickAccountCreationButton() {
+    await expect(this.page.getByRole('link', { name: 'Create an Account' })).toBeVisible();
+    await this.page.getByRole('link', { name: 'Create an Account' }).click();
+  }
+}
