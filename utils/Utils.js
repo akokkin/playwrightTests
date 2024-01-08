@@ -1,6 +1,6 @@
 export default class Utils {
   static generateRandomAlphanumericString(length) {
-    const alphanumericCharacters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    const alphanumericCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let randomString = '';
 
     for (let i = 0; i < length; i++) {

@@ -38,6 +38,7 @@ test('User Registration and Authentication', async ({ page }) => {
     await registrationPage.waitForInvalidPasswordError();
 
     //Ensure the registration form accepts valid Email addresses, Passwords, First Name, Last Name.
+    //Ensure all the mandatory fields are completed.  
     await registrationPage.fillRegistrationForm(firstName, lastName, randomNewEmailAddress, correctPassword, correctPassword);
     await registrationPage.clickAccountCreateSubmitButton();
 
@@ -49,7 +50,7 @@ test('User Registration and Authentication', async ({ page }) => {
     setTimeout(() => { }, 5100)
     await myAccountPage.assertLogOutIsSuccessful();
 
-
+    
     //Navigate to the 'Sign In' page
     await loginPage.navigate();
 

@@ -13,7 +13,7 @@ export default class MyAccountPage {
     }
 
     async assertRedirectedToMyAccountPage() {
-        await this.page.waitForNavigation();
+        await this.page.waitForURL('**/customer/account/');
         const currentURL = await this.page.url();
         const parsedExpectedURL = new URL(MyAccountPageConstants.myAccountPageUrl);
         const parsedCurrentURL = new URL(currentURL);
@@ -23,6 +23,7 @@ export default class MyAccountPage {
     }
 
     async signOut() {
+        await this.page.waitForURL('**/customer/account/');
         await this.page.waitForSelector(MyAccountPageConstants.dropdownSelector, { state: 'visible' });
         await this.page.click(MyAccountPageConstants.dropdownSelector);
 

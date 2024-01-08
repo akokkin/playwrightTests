@@ -24,17 +24,24 @@ export default class RegistrationPage {
     this.page.click(RegistrationPageConstants.createAccountButtonSelector)
   }
 
-  async waitForUmatchingPasswordError() {
+  async waitForUnmatchingPasswordError() {
     await this.page.waitForSelector(RegistrationPageConstants.passwordConfirmationError, { state: 'visible' });
 
     const errorMessage = await this.page.textContent(RegistrationPageConstants.passwordConfirmationError);
-    expect(errorMessage).toContain('Please enter the same value again.');
+    expect(errorMessage).toContain(RegistrationPageConstants.passwordConfirmationErrorText);
   }
 
   async waitForSameEmailPasswordError() {
-    await this.page.waitForSelector(RegistrationPageConstants.sameEmailPasswordError, { state: 'visible' });
+    await this.page.waitForSelector(RegistrationPageConstants.passwordError, { state: 'visible' });
 
-    const errorMessage = await this.page.textContent(RegistrationPageConstants.sameEmailPasswordError);
-    expect(errorMessage).toContain('The password can\'t be the same as the email address. Create a new password and try again.');
+    const errorMessage = await this.page.textContent(RegistrationPageConstants.passwordError);
+    expect(errorMessage).toContain(RegistrationPageConstants.passwordMatchesEmailErrorText);
+  }
+
+  async waitForInvalidPasswordError() {
+    await this.page.waitForSelector(RegistrationPageConstants.passwordError, { state: 'visible' });
+
+    const errorMessage = await this.page.textContent(RegistrationPageConstants.passwordError);
+    expect(errorMessage).toContain(RegistrationPageConstants.passwordInvalidErrorText);
   }
 }

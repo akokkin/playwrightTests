@@ -14,9 +14,10 @@ Acceptance Criteria:
 2. Ensure the registration form accepts valid Email addresses, Passwords, First Name, Last Name.
 3. Ensure the registration form does not accept same email address and password inputs.
 4. Ensure the registration form does not accept different inputs in password fields
-5. Ensure all the mandatory fields are completed.  
-6. Ensure the form submits successfully and creates a new account.
-7. Ensure the user is logged in and navigated to their account page.
+5. Ensure the registration form does not accept same incorrect password formats.
+6. Ensure all the mandatory fields are completed.  
+7. Ensure the form submits successfully and creates a new account.
+8. Ensure the user is logged in and navigated to their account page.
 
 #### Login:
 Scenario: User logs in successfully using valid credentials.
@@ -120,6 +121,35 @@ Scenario Details: Users should be able to add multiple items to their cart in a 
 
 ## Scenario 4: Checkout process 
 
-Scenario Details: Users should be able to add multiple items to their cart in a quick manner and also remove them from it before checking out. Allowing users to include or remove products from their cart is a fundamental functionality and ensures the customers are well informed about the quantities and the amounts of the products they have chosen.
+Scenario Details: Users should be able to complete their purchase easily and in a timely manner. Also users should be able to track their order status and details after placing it. Both functionalities result in better experience and service of the users. This helps in repeating customers.
 
 ### Test Cases:
+
+#### Complete Checkout, track order details and status 
+1. Login as a registered user.
+2. Add 1 random product to your cart.
+3. Tap on the Cart icon on the top right corner of the page.
+4. Tap on 'Proceed to Checkout' button.
+5. Fill in the required fields.
+6. Tap on 'Next' button.
+7. Ensure the amount and details are correct in the order review.
+8. Tap on 'Place Order' button.
+9. Ensure user is navigated to the correct page and details are correct. 
+10. Tap on 'Continue Shopping' button.
+11. Navigate to 'My Orders'.
+12. Ensure the retrieved details are correct.
+13. Tap on 'View Order' button.
+14. Ensure the retrieved details are correct.
+ 
+
+## Scenario 5: Product Reviews 
+
+Scenario Details: Users should be able to review products in a timely manner. User product reviews serve in two ways. They provoke new users to look into items that they otherwise might have missed, and also, provide potential buyers a sense of safety and reassurance due to other consumer's thoughts on them. This functionality helps sales increase bearing zero-cost for the platform owners, like passive marketing. 
+
+### Test Cases:
+1. Login as a registered user.
+2. Enter a random product's reviews page.
+3. Input a Nickname, Summary and Review.
+4. Tap on 'Submit Review' button.
+5. Navigate to 'Reviews' tab.
+6. Ensure the review exists and its details are correct.

@@ -1,7 +1,7 @@
 {
     "url": "https://magento.softwaretestingboard.com/customer/account/login",
     "emailSelector": "#email",
-    "passwordSelector": "#pass",
+    "passwordSelector": "input[name=\"login[password]\"]",
     "signInButtonSelector": "#send2.action.login.primary",
     "invalidAddressErrorSelector": "#email-error"
 }
