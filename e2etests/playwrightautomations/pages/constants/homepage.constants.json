@@ -1,0 +1,9 @@
+{
+    "url": "https://magento.softwaretestingboard.com/",
+    "createAccountButtonSelector": ".panel.header > .header.links > li:not([class])",
+    "correctPassword": "Pass12345",
+    "unsimilarPassword": "Different_Pass12345",
+    "incorrectPassword": "foo",
+    "firstName": "Alex",
+    "lastName": "Kokkinidis"
+}

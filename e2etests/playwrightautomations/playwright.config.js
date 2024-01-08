@@ -1,5 +1,6 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
+const config = require('./config.json');
 
 /**
  * Read environment variables from file.

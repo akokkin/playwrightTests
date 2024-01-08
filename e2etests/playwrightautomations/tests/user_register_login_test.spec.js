@@ -4,34 +4,43 @@ import RegistrationPage from '../pages/RegistrationPage';
 import { waitForDebugger } from 'inspector';
 import MyAccountPage from '../pages/MyAccountPage';
 import Utils from '../../../utils/Utils';
+import LoginPage from '../pages/LoginPage';
+import Config from '../config.json';
 
 test('User Registration and Authentication', async ({ page }) => {
     const homePage = new HomePage(page)
     const registrationPage = new RegistrationPage(page);
     const myAccountPage = new MyAccountPage(page);
+    const loginPage = new LoginPage(page);
     const randomNewEmailAddress = Utils.generateRandomEmail(7);
+    const correctPassword = Config.correctPassword;
+    const incorrectPassword = Config.incorrectPassword;
+    const unsimilarPassword = Config.unsimilarPassword;
 
     await homePage.navigate();
     await homePage.clickAccountCreationButton();
 
-    await registrationPage.fillRegistrationForm(
-        'Alex', 'Kokkinidis', randomNewEmailAddress, 'Pass12345', 'Different_Pass12345'
-    );
+    await registrationPage.fillRegistrationForm('Alex', 'Kokkinidis', randomNewEmailAddress, correctPassword, unsimilarPassword);
     await registrationPage.clickAccountCreateSubmitButton();
     await registrationPage.waitForUmatchingPasswordError();
 
-    await registrationPage.fillRegistrationForm(
-        'Alex', 'Kokkinidis', randomNewEmailAddress, randomNewEmailAddress, randomNewEmailAddress
-    );
+    await registrationPage.fillRegistrationForm('Alex', 'Kokkinidis', randomNewEmailAddress, randomNewEmailAddress, randomNewEmailAddress);
     await registrationPage.clickAccountCreateSubmitButton();
     await registrationPage.waitForSameEmailPasswordError();
 
-    await registrationPage.fillRegistrationForm(
-        'Alex', 'Kokkinidis', randomNewEmailAddress, 'Pass12345', 'Pass12345'
-    );
+    await registrationPage.fillRegistrationForm('Alex', 'Kokkinidis', randomNewEmailAddress, correctPassword, correctPassword);
     await registrationPage.clickAccountCreateSubmitButton();
-    await myAccountPage.assertRedirectedToExpectedURL();
+    await myAccountPage.assertRedirectedToMyAccountPage();
+
     await myAccountPage.signOut();
+    setTimeout(() => { }, 5100)
+    await myAccountPage.assertLogOutIsSuccessful();
+
+    await loginPage.navigate();
+    await loginPage.signIn('foo', 'bar');
+    await loginPage.waitForInvalidEmailAddressError();
+    await loginPage.signIn(randomNewEmailAddress, 'bar');
+
 
     //   // Ensure the user is logged in and navigated to their account page.
     //   expect(page.url()).toBe('https://your-ecommerce-website.com/account');

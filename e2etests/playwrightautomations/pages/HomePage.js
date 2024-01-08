@@ -1,18 +1,22 @@
 import { expect } from '@playwright/test';
+import HomepageConstants from './constants/homepage.constants.json'
 
 export default class HomePage {
-  url = 'https://magento.softwaretestingboard.com/';
 
   constructor(page) {
     this.page = page;
   }
 
   async navigate() {
-    return this.page.goto(this.url);
+    return this.page.goto(HomepageConstants.url);
   }
 
   async clickAccountCreationButton() {
-    await expect(this.page.getByRole('link', { name: 'Create an Account' })).toBeVisible();
-    await this.page.getByRole('link', { name: 'Create an Account' }).click();
+    await expect(this.page.locator(HomepageConstants.createAccountButtonSelector)).toBeVisible();
+    await this.page.locator(HomepageConstants.createAccountButtonSelector).click();
+  }
+
+  async logIn() {
+    
   }
 }

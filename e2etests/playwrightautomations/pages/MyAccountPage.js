@@ -1,23 +1,21 @@
 import { expect } from '@playwright/test';
 import { URL } from 'url';
+import MyAccountPageConstants from './constants/myaccountpage.constants.json';
+import HomePageConstants from './constants/homepage.constants.json';
 
 export default class MyAccountPage {
-    url = 'https://magento.softwaretestingboard.com/customer/account/';
-    dropdownSelector = 'body > div.page-wrapper > header > div.panel.wrapper > div > ul > li.customer-welcome > span';
-    signOutlinkSelector = 'a[href="https://magento.softwaretestingboard.com/customer/account/logout/"]';
-
     constructor(page) {
         this.page = page;
     }
 
     navigate() {
-        return this.page.goto(this.url);
+        return this.page.goto(MyAccountPageConstants.myAccountPageUrl);
     }
 
-    async assertRedirectedToExpectedURL() {
+    async assertRedirectedToMyAccountPage() {
         await this.page.waitForNavigation();
         const currentURL = await this.page.url();
-        const parsedExpectedURL = new URL(this.url);
+        const parsedExpectedURL = new URL(MyAccountPageConstants.myAccountPageUrl);
         const parsedCurrentURL = new URL(currentURL);
 
         expect(parsedCurrentURL.pathname).toBe(parsedExpectedURL.pathname);
@@ -25,10 +23,21 @@ export default class MyAccountPage {
     }
 
     async signOut() {
-        await this.page.waitForSelector(this.dropdownSelector, { state: 'visible' });
-        await this.page.click(this.dropdownSelector);
-    
-        const signOutLink = await this.page.$(this.signOutlinkSelector);
-        await signOutLink.click();
+        await this.page.waitForSelector(MyAccountPageConstants.dropdownSelector, { state: 'visible' });
+        await this.page.click(MyAccountPageConstants.dropdownSelector);
+
+        await this.page.waitForSelector(MyAccountPageConstants.signOutlinkSelector, { state: 'visible' });
+        await this.page.click(MyAccountPageConstants.signOutlinkSelector);
+    }
+
+
+    async assertLogOutIsSuccessful() {
+        await this.page.waitForNavigation();
+        const currentURL = await this.page.url();
+        const parsedExpectedURL = new URL(HomePageConstants.url);
+        const parsedCurrentURL = new URL(currentURL);
+
+        expect(parsedCurrentURL.pathname).toBe(parsedExpectedURL.pathname);
+        expect(parsedCurrentURL.host).toBe(parsedExpectedURL.host);
     }
 }

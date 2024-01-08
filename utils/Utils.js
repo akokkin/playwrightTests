@@ -13,7 +13,7 @@ export default class Utils {
 
   static generateRandomEmail(mailPrefixLength) {
     const randomString = Utils.generateRandomAlphanumericString(mailPrefixLength);
-    const randomEmailAddress = `randomEmailAddress=${randomString}@adaptavist-test.com`;
+    const randomEmailAddress = `${randomString}@adaptavist-test.com`;
     return randomEmailAddress;
   }
 }

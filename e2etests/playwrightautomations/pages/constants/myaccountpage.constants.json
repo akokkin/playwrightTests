@@ -1,0 +1,6 @@
+{
+    "myAccountPageUrl": "https://magento.softwaretestingboard.com/customer/account/",
+    "dropdownSelector": "body > div.page-wrapper > header > div.panel.wrapper > div > ul > li.customer-welcome > span",
+    "signOutlinkSelector": "li.customer-welcome.active > div > ul > li.authorization-link > a",
+    "postLogoutUrl": "https://magento.softwaretestingboard.com/"
+}

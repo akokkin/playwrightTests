@@ -1,0 +1,11 @@
+{
+    "url": "https://magento.softwaretestingboard.com/customer/account/create/",
+    "firstnameSelector": "#firstname",
+    "lastnameSelector": "#lastname",
+    "emailSelector": "#email_address",
+    "passwordSelector": "#password",
+    "passwordConfirmationSelector": "#password-confirmation",
+    "passwordConfirmationError": "#password-confirmation-error",
+    "sameEmailPasswordError": "#password-error",
+    "createAccountButtonSelector": "#form-validate > div > div.primary > button"
+}
