@@ -78,16 +78,21 @@ export default class MenProductsPage {
             console.error('No colors were retrieved')
         }
 
-        this.page.click('#product-addtocart-button');
+        await this.page.click('#product-addtocart-button');
+
+        const element = await this.page.$$('div > a > span.counter.qty._block-content-loading');
+
+        if (element.length > 0) {
+            await this.page.$$('div > a > span.counter.qty:not(._block-content-loading)');
+        }
     }
 
-    async assertQuickCartProductsCount() {
+    async assertQuickCartProductsCountEqualsOne() {
         const counterSelector = 'span.counter-number';
         await this.page.waitForSelector(counterSelector);
         const counterText = await this.page.textContent(counterSelector);
-        console.log(counterText)
 
-        if (counterText) {
+        if (counterText != null) {
             expect(counterText).toBe("1");
         } else {
             console.error('Cart count is wrong')

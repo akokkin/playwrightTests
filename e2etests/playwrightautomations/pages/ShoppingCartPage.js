@@ -10,24 +10,19 @@ export default class ShoppingCartPage {
     return this.page.goto(ShoppingCartPageConstants.url);
   }
 
-  async waitForPageStability() {
-    await this.page.waitForFunction(() => {
-      const element = document.querySelector('[aria-busy="true"]');
-      return !element;
-    });
-  }
-
   async deleteAllProductsFromCart() {
-    this.navigate();
-    await this.page.waitForSelector(ShoppingCartPageConstants.deleteItemButtonSelector, { state: 'visible' });
-    const deleteButtons = await this.page.$$(ShoppingCartPageConstants.deleteItemButtonSelector);
-    const topDeleteButton = await this.page.locator(ShoppingCartPageConstants.topDeleteItemButtonSelector)
+    await this.navigate();
+    const deleteButton = await this.page.$$(ShoppingCartPageConstants.deleteItemButtonSelector)
 
-    for (let i = 0; i < deleteButtons.length; i++) {
-      await topDeleteButton.click();
-      await this.waitForPageStability();
+    if (deleteButton.length > 0) {
+      const deleteButtons = await this.page.$$(ShoppingCartPageConstants.deleteItemButtonSelector);
+      const topDeleteButton = await this.page.locator(ShoppingCartPageConstants.topDeleteItemButtonSelector)
+
+      for (let i = 0; i < deleteButtons.length; i++) {
+        await topDeleteButton.click();
+      }
+      const newDeleteButton = await this.page.$$(ShoppingCartPageConstants.deleteItemButtonSelector); 
+      expect(newDeleteButton.length).toBe(0);
     }
-
-    expect(await this.page.$$(ShoppingCartPageConstants.deleteItemButtonSelector).length).toBe(0);
   }
 }

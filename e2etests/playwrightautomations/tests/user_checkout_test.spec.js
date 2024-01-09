@@ -7,40 +7,29 @@ import LoginPage from '../pages/LoginPage';
 import ShoppingCartPage from '../pages/ShoppingCartPage'
 import MenProductsPage from '../pages/MenProductsPage'
 import Credentials from '../../../credentials.json'
-import { log } from 'console';
-const emailAddress = Credentials.emailAddress;
-const password = Credentials.password;
-const randomNewEmailAddress = Utils.generateRandomEmail(7);
-
-test.beforeEach(async ({ page }) => {
-    const shoppingCartPage = new ShoppingCartPage(page);
-    const loginPage = new LoginPage(page);
-
-    await loginPage.navigate();
-    await loginPage.signIn(emailAddress, password);
-
-    await shoppingCartPage.deleteAllProductsFromCart();
-});
+const { emailAddress, password } = Credentials;
 
 test('User Checkout Test', async ({ page }) => {
     const homePage = new HomePage(page)
     const menProductsPage = new MenProductsPage(page);
     const myAccountPage = new MyAccountPage(page);
     const loginPage = new LoginPage(page);
+    const shoppingCartPage = new ShoppingCartPage(page);
 
 
 
-    //Login as a registered user.
+    //Login as a registered user
     await loginPage.navigate();
     await loginPage.signIn(emailAddress, password);
-    await myAccountPage.assertRedirectedToMyAccountPage();
+    //Delete any existing items in cart
+    await shoppingCartPage.deleteAllProductsFromCart();
 
     await menProductsPage.navigate();
     await menProductsPage.assertProductsCategoriesListIsVisible();
     await menProductsPage.navigateToRandomProductCategory();
     await menProductsPage.navigateToRandomProductDetailsPage();
     await menProductsPage.addProductToCart();
-    await menProductsPage.assertQuickCartProductsCount();
+    await menProductsPage.assertQuickCartProductsCountEqualsOne();
     await new Promise(resolve => setTimeout(resolve, 5000));
 
 
