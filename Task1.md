@@ -96,7 +96,7 @@ Scenario Details: Users should be able to add multiple items to their cart in a 
 
 
 #### Remove products from cart
-1. Login as a registered user
+1. Login as a registered user.
 2. Add 3 random products to your cart.
 3. Tap on the 'Move to Wishlist' button of the first product.
 4. Ensure the item was removed from the cart.

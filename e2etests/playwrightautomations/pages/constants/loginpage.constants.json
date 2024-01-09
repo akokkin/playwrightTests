@@ -1,7 +1,8 @@
 {
-    "url": "https://magento.softwaretestingboard.com/customer/account/login",
+    "url": "https://magento.softwaretestingboard.com/customer/account/login/",
     "emailSelector": "#email",
     "passwordSelector": "input[name=\"login[password]\"]",
     "signInButtonSelector": "#send2.action.login.primary",
-    "invalidAddressErrorSelector": "#email-error"
+    "invalidAddressErrorSelector": "#email-error",
+    "invalidAdddressErrorText": "Please enter a valid email address (Ex: johndoe@domain.com)."
 }

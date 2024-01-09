@@ -15,8 +15,4 @@ export default class HomePage {
     await expect(this.page.locator(HomepageConstants.createAccountButtonSelector)).toBeVisible();
     await this.page.locator(HomepageConstants.createAccountButtonSelector).click();
   }
-
-  async logIn() {
-    
-  }
 }

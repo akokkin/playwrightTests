@@ -1,0 +1,4 @@
+{
+    "url": "https://magento.softwaretestingboard.com/checkout/cart/",
+    "deleteItemButtonSelector": "a.action.action-delete"
+}
