@@ -31,8 +31,8 @@ test('User Checkout Test', async ({ page }) => {
 
 
     //Login as a registered user.
-    // await loginPage.navigate();
-    // await loginPage.signIn(emailAddress, password);
+    await loginPage.navigate();
+    await loginPage.signIn(emailAddress, password);
     await myAccountPage.assertRedirectedToMyAccountPage();
 
     await menProductsPage.navigate();

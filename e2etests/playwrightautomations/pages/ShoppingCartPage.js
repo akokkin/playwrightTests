@@ -10,18 +10,24 @@ export default class ShoppingCartPage {
     return this.page.goto(ShoppingCartPageConstants.url);
   }
 
+  async waitForPageStability() {
+    await this.page.waitForFunction(() => {
+      const element = document.querySelector('[aria-busy="true"]');
+      return !element;
+    });
+  }
+
   async deleteAllProductsFromCart() {
     this.navigate();
-    await this.page.waitForSelector(ShoppingCartPageConstants.deleteItemButtonSelector);
+    await this.page.waitForSelector(ShoppingCartPageConstants.deleteItemButtonSelector, { state: 'visible' });
     const deleteButtons = await this.page.$$(ShoppingCartPageConstants.deleteItemButtonSelector);
-    console.log("@@@deleteButtons count is: " + deleteButtons.length)
+    const topDeleteButton = await this.page.locator(ShoppingCartPageConstants.topDeleteItemButtonSelector)
 
-    if (deleteButtons.length > 0) { //TODO: Fix method
-      for (let i = 0; i < deleteButtons.length; i++) {
-        console.log("@@@count is: " + i)
-        await this.page.waitForSelector(ShoppingCartPageConstants.deleteItemButtonSelector, { state: 'visible' });
-        await deleteButtons[i].click();
-      }
+    for (let i = 0; i < deleteButtons.length; i++) {
+      await topDeleteButton.click();
+      await this.waitForPageStability();
     }
+
+    expect(await this.page.$$(ShoppingCartPageConstants.deleteItemButtonSelector).length).toBe(0);
   }
 }

@@ -1,4 +1,5 @@
 {
     "url": "https://magento.softwaretestingboard.com/checkout/cart/",
-    "deleteItemButtonSelector": "a.action.action-delete"
+    "deleteItemButtonSelector": ".action.action-delete",
+    "topDeleteItemButtonSelector": "#shopping-cart-table > tbody:nth-child(3) > tr.item-actions > td > div > a.action.action-delete"
 }

@@ -13,7 +13,7 @@ export default class MyAccountPage {
     }
 
     async assertRedirectedToMyAccountPage() {
-        await this.page.waitForURL('**/customer/account/');
+        await this.page.waitForNavigation();
         const currentURL = await this.page.url();
         const parsedExpectedURL = new URL(MyAccountPageConstants.myAccountPageUrl);
         const parsedCurrentURL = new URL(currentURL);
