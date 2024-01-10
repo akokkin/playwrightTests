@@ -1,7 +1,7 @@
 {
     "name": "ak-newman-tests",
     "dependencies": {
-        "newman": "^5.1.2",
+        "newman": "^6.1.0",
         "newman-reporter-htmlextra": "^1.22.11"
     },
     "scripts": {
