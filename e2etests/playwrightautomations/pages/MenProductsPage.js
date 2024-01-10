@@ -3,6 +3,7 @@ import { URL } from 'url';
 import MyAccountPageConstants from './constants/myaccountpage.constants.json';
 import HomePageConstants from './constants/homepage.constants.json';
 import MenProductsPageConstants from './constants/menproductspage.constants.json'
+const { url, counterSelector, productsSidebarSelector, shoppingCartSelector, shoppingCartActiveSelector, cartProceedToCheckoutSelector } = MenProductsPageConstants;
 
 export default class MenProductsPage {
     constructor(page) {
@@ -10,7 +11,7 @@ export default class MenProductsPage {
     }
 
     navigate() {
-        return this.page.goto(MenProductsPageConstants.url);
+        return this.page.goto(url);
     }
 
     async assertProductsCategoriesListIsVisible() {
@@ -88,7 +89,6 @@ export default class MenProductsPage {
     }
 
     async assertQuickCartProductsCountEqualsOne() {
-        const counterSelector = 'span.counter-number';
         await this.page.waitForSelector(counterSelector);
         const counterText = await this.page.textContent(counterSelector);
 
@@ -97,5 +97,15 @@ export default class MenProductsPage {
         } else {
             console.error('Cart count is wrong')
         }
+    }
+
+    async navigateToCheckOut() {
+        const shoppingCartButton = await this.page.$$(shoppingCartSelector);
+        await shoppingCartButton.click();
+        await this.page.waitForSelector(shoppingCartActiveSelector);
+        await this.page.waitForSelector(cartProceedToCheckoutSelector);
+        const proceedToCheckoutButton = this.page.$$(cartProceedToCheckoutSelector);
+
+        proceedToCheckoutButton.click();
     }
 }

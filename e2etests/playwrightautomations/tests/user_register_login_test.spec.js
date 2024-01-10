@@ -17,6 +17,7 @@ test('User Registration and Authentication', async ({ page }) => {
     const unsimilarPassword = HomepageConstants.unsimilarPassword;
     const firstName = HomepageConstants.firstName;
     const lastName = HomepageConstants.lastName;
+    const incorrectEmailAddress = 'foo';
 
     //Navigate to the 'Create An Account' page.
     await homePage.navigate();
@@ -54,7 +55,7 @@ test('User Registration and Authentication', async ({ page }) => {
     await loginPage.navigate();
 
     //Ensure the login form accepts valid email address and password.
-    await loginPage.signIn('foo', incorrectPassword);
+    await loginPage.signIn(incorrectEmailAddress, incorrectPassword);
     await loginPage.waitForInvalidEmailAddressError();
     
     //Both fields should be completed with existing user's credentials.

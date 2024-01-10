@@ -1,0 +1,10 @@
+{
+    "name": "ak-newman-tests",
+    "dependencies": {
+      "newman": "^5.1.2",
+      "newman-reporter-htmlextra": "^1.22.11"
+    },
+    "scripts": {
+      "test": "newman run Adaptavist.postman_collection.json -e Adaptavist.postman_environment.json -r cli,htmlextra --reporter-htmlextra-displayProgressBar --reporter-htmlextra-export reports/report.html"
+    }
+  }

@@ -1,0 +1,21 @@
+name Cypress and Newman Tests
+
+on
+  push
+    branches
+      - main
+
+jobs
+  newman
+    runs-on ubuntu-latest
+
+    steps
+      - name Checkout Repository
+        uses actionscheckout@v2
+
+      - name Install Newman
+        run npm install -g newman
+
+      - name Run Newman Tests
+        run 
+          newman run Adaptavist.postman_collection.json -e Adaptavist.postman_environment.json -r htmlextra

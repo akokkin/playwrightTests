@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "c9fd240b-16bb-4df6-a850-83d4f7e470c9",
+		"name": "Adaptavist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19911314"
+	},
+	"item": [
+		{
+			"name": "Positive Tests",
+			"item": [
+				{
+					"name": "List Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Assert top-level properties exist and their types\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.page).eqls(2);\r",
+									"    pm.expect(jsonData.per_page).is.a('number');\r",
+									"    pm.expect(jsonData.data.length).eqls(jsonData.per_page);\r",
+									"    pm.expect(jsonData.total).is.a('number');\r",
+									"    pm.expect(jsonData.total_pages).is.a('number');\r",
+									"    pm.expect(jsonData.data).is.an('array');\r",
+									"    pm.expect(jsonData.support).is.an('object');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Evaluate data array properties and their types\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"\r",
+									"    for (var i = 0; i < jsonData.data.length; i++) {\r",
+									"        pm.expect(jsonData.data[i].id).is.a('number');\r",
+									"        pm.expect(jsonData.data[i].email).is.a('string');\r",
+									"        pm.expect(jsonData.data[i].first_name).is.a('string');\r",
+									"        pm.expect(jsonData.data[i].last_name).is.a('string');\r",
+									"        pm.expect(jsonData.data[i].avatar).contains('https://reqres.in');\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Evaluate support properties and their types\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.support.url).eqls('https://reqres.in/#support-heading');\r",
+									"    pm.expect(jsonData.support.text).eqls('To keep ReqRes free, contributions towards server costs are appreciated!');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/users?page=2",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const namesList = ['Alex', 'John', 'George', 'Kate', 'Monique'];\r",
+									"const jobsList = ['Manager', 'Executive', 'Engineer', 'Analyst', 'CEO']\r",
+									"const randomIndex = Math.floor(Math.random() * 5);\r",
+									"\r",
+									"pm.environment.set(\"randomName\", namesList[randomIndex]);\r",
+									"pm.environment.set(\"randomJob\", jobsList[randomIndex])"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201 - User was created\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Users properties are correct\", () => {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const currentDate = new Date().toISOString().split(\"T\")[0];\r",
+									"    const parsedId = +jsonData.id;\r",
+									"    \r",
+									"    pm.expect(isNaN(parsedId)).is.false;\r",
+									"    pm.environment.set(\"userId\", jsonData.id);\r",
+									"    pm.expect(jsonData.createdAt).includes(currentDate);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{randomName}}\",\r\n    \"job\": \"{{randomJob}}\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/api/users",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"newUserName\", \"New_User_Name\")\r",
+									"pm.environment.set(\"newUserJob\", \"Freelancer\")"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response properties are correct\", ()=> {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const currentDate = new Date().toISOString().split(\"T\")[0];\r",
+									"    pm.expect(jsonData.updatedAt).contains(currentDate)\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New_User_Name\",\r\n    \"job\": \"Freelancer\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/api/users/{{userId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

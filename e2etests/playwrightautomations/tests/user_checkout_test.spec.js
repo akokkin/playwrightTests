@@ -23,20 +23,19 @@ test('User Checkout Test', async ({ page }) => {
     await loginPage.signIn(emailAddress, password);
     //Delete any existing items in cart
     await shoppingCartPage.deleteAllProductsFromCart();
-
+    
+    //Add 1 random product to your cart.
     await menProductsPage.navigate();
     await menProductsPage.assertProductsCategoriesListIsVisible();
     await menProductsPage.navigateToRandomProductCategory();
     await menProductsPage.navigateToRandomProductDetailsPage();
     await menProductsPage.addProductToCart();
     await menProductsPage.assertQuickCartProductsCountEqualsOne();
-    await new Promise(resolve => setTimeout(resolve, 5000));
-
-
-
-    //Add 1 random product to your cart.
+    
     //Tap on the Cart icon on the top right corner of the page.
     //Tap on 'Proceed to Checkout' button.
+    await navigateToCheckOut()
+    
     //Fill in the required fields.
     //Tap on 'Next' button.
     //Ensure the amount and details are correct in the order review.
