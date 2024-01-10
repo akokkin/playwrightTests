@@ -6,5 +6,5 @@
     },
     "scripts": {
       "test": "newman run Adaptavist.postman_collection.json -e Adaptavist.postman_environment.json -r cli,htmlextra --reporter-htmlextra-displayProgressBar --reporter-htmlextra-export reports/report.html"
-    }
+    } 
   }
