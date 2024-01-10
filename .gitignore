@@ -1,0 +1,9 @@
+node_modules/
+/e2etests/playwrightautomations/test-results/
+/e2etests/playwrightautomations/playwright-report/
+/e2etests/playwrightautomations/blob-report/
+/e2etests/playwrightautomations/playwright/.cache/
+/e2etests/playwrightautomations/credentials.json
+/e2etests/playwrightautomations/node_modules/
+/e2etests/playwrightautomations/node_modules/
+/apitests/node_modules
