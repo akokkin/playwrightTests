@@ -25,9 +25,12 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-      - name: Run playwright Tests
+      - name: Run Playwright tests
         run: |
-          cd e2etests/playwrightautomations && npm ci && npm test
+          cd e2etests/playwrightautomations
+          npm ci
+          npx playwright install
+          npx playwright test
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         if: always()
