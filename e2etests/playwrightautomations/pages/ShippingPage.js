@@ -12,17 +12,19 @@ export default class ShippingPage {
     }
 
     async selectRandomAddressItem() {
-        const addressItemsList = await this.page.$$(ShippingPageConstants.addressObjectSelector);
+        await this.page.waitForSelector(ShippingPageConstants.addressesListSelector, { state: 'visible' });
+        const addressItemsList = await this.page.$$(ShippingPageConstants.addressesListSelector);
         expect(addressItemsList.length).toBeGreaterThan(0);
         const randomAddressItem = addressItemsList[Math.floor(Math.random() * addressItemsList.length)];
-        await this.page.click(randomAddressItem);
+        await randomAddressItem.click();
     }
 
     async selectRandomShippingMethod() {
+        await this.page.waitForSelector(ShippingPageConstants.shippingMethodSelectButtonSelector, { state: 'visible' });
         const shippingMethodItemsList = await this.page.$$(ShippingPageConstants.shippingMethodSelectButtonSelector);
         expect(shippingMethodItemsList.length).toBeGreaterThan(0);
         const randomAddressItem = shippingMethodItemsList[Math.floor(Math.random() * shippingMethodItemsList.length)];
-        await this.page.click(randomAddressItem);
+        await randomAddressItem.click();
     }
 
     async clickNextButton() {

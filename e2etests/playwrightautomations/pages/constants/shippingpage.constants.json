@@ -1,6 +1,7 @@
 {
     "shippingPageUrl": "https://magento.softwaretestingboard.com/checkout/#shipping",
     "addressObjectSelector": ".shipping-address-item.selected-item",
+    "addressesListSelector": ".shipping-address-items",
     "newAddressButtonSelector": ".new-address-popup>button",
     "shippingMethodSelectButtonSelector": ".radio",
     "nextButtonSelector": ".button.action.continue.primary"

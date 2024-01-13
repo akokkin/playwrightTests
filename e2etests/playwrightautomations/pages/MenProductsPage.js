@@ -89,7 +89,7 @@ export default class MenProductsPage {
     }
 
     async assertQuickCartProductsCountEqualsOne() {
-        await expect(await this.page.locator(cartCountLoadingSelector)).toHaveCount(0);
+        await this.page.waitForFunction(() => !document.body.classList.contains('ajax-loading'));
         const counterText = await this.page.textContent(counterSelector);
 
         if (counterText != null) {
@@ -107,7 +107,6 @@ export default class MenProductsPage {
         await this.page.waitForSelector(shoppingCartActiveSelector);
         await this.page.waitForSelector(cartProceedToCheckoutSelector);
         const proceedToCheckoutButton = await this.page.$$(cartProceedToCheckoutSelector);
-        console.log("@@@ proceedToCheckoutButton: " + proceedToCheckoutButton[0]);
         await proceedToCheckoutButton[0].click();
     }
 }
