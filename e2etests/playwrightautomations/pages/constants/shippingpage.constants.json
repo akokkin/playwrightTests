@@ -4,5 +4,9 @@
     "addressesListSelector": ".shipping-address-items",
     "newAddressButtonSelector": ".new-address-popup>button",
     "shippingMethodSelectButtonSelector": ".radio",
-    "nextButtonSelector": ".button.action.continue.primary"
+    "nextButtonSelector": ".button.action.continue.primary",
+    "summaryProductNameSelector": ".product-item-name",
+    "summaryProductQuantitySelector": ".details-qty>span.value",
+    "summaryProductSubtotalSelector": ".cart-price >.price",
+    "summaryItemsInCartCountSelector": "span[data-bind*=\"text: getCartSummaryItemsCount()\"]"
 }
