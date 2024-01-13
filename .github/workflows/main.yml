@@ -20,7 +20,7 @@ jobs:
         with:
           name: Newman_Report
           path: apitests/reports/report.html
-  partB:
+  e2eTets:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: Cypress_Screenshots
+          name: Playwright_Screenshots
           path: e2etests/playwrightautomations/screenshots
 
           
