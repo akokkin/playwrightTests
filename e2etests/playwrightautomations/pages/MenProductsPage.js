@@ -3,7 +3,7 @@ import { URL } from 'url';
 import MyAccountPageConstants from './constants/myaccountpage.constants.json';
 import HomePageConstants from './constants/homepage.constants.json';
 import MenProductsPageConstants from './constants/menproductspage.constants.json'
-const { url, counterSelector, productsSidebarSelector, shoppingCartSelector, shoppingCartActiveSelector, cartProceedToCheckoutSelector } = MenProductsPageConstants;
+const { url, counterSelector, productsSidebarSelector, cartCountLoadingSelector, shoppingCartSelector, shoppingCartActiveSelector, cartProceedToCheckoutSelector } = MenProductsPageConstants;
 
 export default class MenProductsPage {
     constructor(page) {
@@ -70,7 +70,7 @@ export default class MenProductsPage {
 
         const colors = await this.page.$$('.swatch-option.color');
 
-        if (sizes.length > 0) {
+        if (colors.length > 0) {
             const randomIndex = Math.floor(Math.random() * colors.length);
             const randomColor = colors[randomIndex];
 
@@ -89,7 +89,7 @@ export default class MenProductsPage {
     }
 
     async assertQuickCartProductsCountEqualsOne() {
-        await this.page.waitForSelector(counterSelector);
+        await expect(await this.page.locator(cartCountLoadingSelector)).toHaveCount(0);
         const counterText = await this.page.textContent(counterSelector);
 
         if (counterText != null) {
@@ -100,12 +100,14 @@ export default class MenProductsPage {
     }
 
     async navigateToCheckOut() {
+        await this.page.waitForSelector(shoppingCartSelector, { state: 'visible' });
+
         const shoppingCartButton = await this.page.$$(shoppingCartSelector);
-        await shoppingCartButton.click();
+        await shoppingCartButton[0].click();
         await this.page.waitForSelector(shoppingCartActiveSelector);
         await this.page.waitForSelector(cartProceedToCheckoutSelector);
-        const proceedToCheckoutButton = this.page.$$(cartProceedToCheckoutSelector);
-
-        proceedToCheckoutButton.click();
+        const proceedToCheckoutButton = await this.page.$$(cartProceedToCheckoutSelector);
+        console.log("@@@ proceedToCheckoutButton: " + proceedToCheckoutButton[0]);
+        await proceedToCheckoutButton[0].click();
     }
 }

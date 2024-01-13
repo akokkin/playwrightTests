@@ -23,6 +23,6 @@ export default class LoginPage {
         await this.page.waitForSelector(LoginPageConstants.invalidAddressErrorSelector, { state: 'visible' });
 
         const errorMessage = await this.page.textContent(LoginPageConstants.invalidAddressErrorSelector);
-        expect(errorMessage).toContain(LoginPageConstants.invalidAddressErrorSelector);
+        expect(errorMessage).toContain(LoginPageConstants.invalidAdddressErrorText);
     }
 }

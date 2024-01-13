@@ -2,5 +2,6 @@
     "myAccountPageUrl": "https://magento.softwaretestingboard.com/customer/account/",
     "dropdownSelector": ".panel.wrapper > div > ul > li.customer-welcome > span > button",
     "signOutlinkSelector": "li.customer-welcome.active > div > ul > li.authorization-link > a",
-    "postLogoutUrl": "https://magento.softwaretestingboard.com/"
+    "postLogoutUrl": "https://magento.softwaretestingboard.com/",
+    "userPropertiesSidebarSelector": "#block-collapsible-nav"
 }

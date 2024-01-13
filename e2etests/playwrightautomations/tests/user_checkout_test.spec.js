@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import HomePage from '../pages/HomePage';
-import RegistrationPage from '../pages/ShoppingCartPage';
+import ShippingPage from '../pages/ShippingPage';
 import MyAccountPage from '../pages/MyAccountPage';
 import Utils from '../../../utils/Utils';
 import LoginPage from '../pages/LoginPage';
@@ -10,7 +10,7 @@ import Credentials from '../../../credentials.json'
 const { emailAddress, password } = Credentials;
 
 test('User Checkout Test', async ({ page }) => {
-    const homePage = new HomePage(page)
+    const shippingPage = new ShippingPage(page)
     const menProductsPage = new MenProductsPage(page);
     const myAccountPage = new MyAccountPage(page);
     const loginPage = new LoginPage(page);
@@ -34,10 +34,11 @@ test('User Checkout Test', async ({ page }) => {
     
     //Tap on the Cart icon on the top right corner of the page.
     //Tap on 'Proceed to Checkout' button.
-    await navigateToCheckOut()
+    await menProductsPage.navigateToCheckOut();
     
-    //Fill in the required fields.
+    //Fill in/Select the required fields.
     //Tap on 'Next' button.
+    await shippingPage.selectRandomAddressAndShipping();
     //Ensure the amount and details are correct in the order review.
     //Tap on 'Place Order' button.
     //Ensure user is navigated to the correct page and details are correct. 
