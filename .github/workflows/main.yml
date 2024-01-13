@@ -20,3 +20,19 @@ jobs:
         with:
           name: Newman_Report
           path: apitests/reports/report.html
+  partB:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Run playwright Tests
+        run: |
+          cd e2etests/playwrightautomations && npm ci && npm test
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: Cypress_Screenshots
+          path: e2etests/playwrightautomations/screenshots
+
+          
