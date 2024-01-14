@@ -23,20 +23,21 @@ export default class ShippingPage {
         await this.page.waitForSelector(ShippingPageConstants.shippingMethodSelectButtonSelector, { state: 'visible' });
         const shippingMethodItemsList = await this.page.$$(ShippingPageConstants.shippingMethodSelectButtonSelector);
         expect(shippingMethodItemsList.length).toBeGreaterThan(0);
-        const randomAddressItem = shippingMethodItemsList[Math.floor(Math.random() * shippingMethodItemsList.length)];
-        await randomAddressItem.click();
+        const randomShippingMethod = shippingMethodItemsList[Math.floor(Math.random() * shippingMethodItemsList.length)];
+        await randomShippingMethod.click();
     }
 
     async clickNextButton() {
         await this.page.waitForSelector(ShippingPageConstants.nextButtonSelector);
-        await this.page.click(ShippingPageConstants.nextButtonSelector);
+
+        // await this.page.waitForSelector(ShippingPageConstants.nextButtonSelector);
+        await this.page.locator(ShippingPageConstants.nextButtonSelector).click();
     }
 
     async selectRandomAddressAndShipping() {
         this.selectRandomAddressItem();
         this.selectRandomShippingMethod();
         this.clickNextButton()
-        // await this.page.waitForNavigation(); 
         await this.page.waitForURL(PaymentPageConstants.url);
     }
 }

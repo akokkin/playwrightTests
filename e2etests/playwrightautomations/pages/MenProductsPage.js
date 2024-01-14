@@ -1,13 +1,12 @@
 import { expect } from '@playwright/test';
 import { URL } from 'url';
-import MyAccountPageConstants from './constants/myaccountpage.constants.json';
-import HomePageConstants from './constants/homepage.constants.json';
 import MenProductsPageConstants from './constants/menproductspage.constants.json'
 const { url, counterSelector, productsSidebarSelector, cartCountLoadingSelector, shoppingCartSelector, shoppingCartActiveSelector, cartProceedToCheckoutSelector } = MenProductsPageConstants;
 
 export default class MenProductsPage {
     constructor(page) {
         this.page = page;
+        this.selectedProduct = {};
     }
 
     navigate() {
@@ -49,7 +48,10 @@ export default class MenProductsPage {
             const randomChild = children[randomIndex];
 
             await randomChild.click();
+            await this.page.waitForSelector(".product-info-main span.price")
 
+            this.selectedProduct.price = await this.page.textContent(".product-info-main span.price");
+            this.selectedProduct.name = await this.page.textContent(".page-title> .base");
         } else {
             console.error('No child elements found in products list');
         }
@@ -108,5 +110,9 @@ export default class MenProductsPage {
         await this.page.waitForSelector(cartProceedToCheckoutSelector);
         const proceedToCheckoutButton = await this.page.$$(cartProceedToCheckoutSelector);
         await proceedToCheckoutButton[0].click();
+    }
+
+    getSelectedProduct() {
+        return this.selectedProduct;
     }
 }

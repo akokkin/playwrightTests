@@ -1,3 +1,10 @@
 {
-    "url": "https://magento.softwaretestingboard.com/checkout/#payment"
+    "url": "https://magento.softwaretestingboard.com/checkout/#payment",
+    "summaryProductNameSelector": ".product-item-name-block>strong",
+    "summaryProductQuantitySelector": ".details-qty>span.value",
+    "summaryProductSubtotalSelector": ".cart-price >.price",
+    "summaryItemsInCartCountSelector": "span[data-bind*=\"text: getCartSummaryItemsCount()\"]",
+    "summaryOrderTotalSelector": "td > strong > span",
+    "summaryShippingSelector": "tr.totals.shipping.excl > td > span",
+    "placeOrderButtonSelector": ".payment-method-content > div.actions-toolbar > div > button"
 }
