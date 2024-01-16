@@ -1,6 +1,6 @@
 {
     "url": "https://magento.softwaretestingboard.com/checkout/onepage/success/",
-    "successPageTitleSelector": "span.base",
+    "successPageTitleSelector": "h1.page-title>.base",
     "orderNumberSelector": ".checkout-success > p:nth-child(1)",
     "emailConfirmationTextSelector": ".checkout-success > p:nth-child(2)",
     "continueShoppingButtonSelector": ".checkout-success > div > div > a > span"

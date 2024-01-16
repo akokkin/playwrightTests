@@ -7,6 +7,7 @@ export default class PurchaseSuccessPage {
     }
 
     async validateSuccessfullOrder() {
+        await this.page.waitForURL(PurchaseSuccessPageConstants.url, { waitUntil: 'domcontentloaded' });
         await this.page.waitForSelector(PurchaseSuccessPageConstants.successPageTitleSelector);
         expect(await this.page.locator(PurchaseSuccessPageConstants.successPageTitleSelector)).toHaveText('Thank you for your purchase!');
         expect(await this.page.locator(PurchaseSuccessPageConstants.orderNumberSelector)).toContainText('Your order number is:');

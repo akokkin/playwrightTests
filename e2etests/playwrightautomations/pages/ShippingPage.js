@@ -1,6 +1,5 @@
 import { expect } from '@playwright/test';
 import ShippingPageConstants from './constants/shippingpage.constants.json';
-import PaymentPageConstants from './constants/paymentpage.constants.json';
 
 export default class ShippingPage {
     constructor(page) {
@@ -12,6 +11,7 @@ export default class ShippingPage {
     }
 
     async selectRandomAddressItem() {
+        await this.page.waitForURL(ShippingPageConstants.url, { waitUntil: 'domcontentloaded' });
         await this.page.waitForSelector(ShippingPageConstants.notSelectedAddressShipHereButtonSelector, { state: 'attached' });
         const shipHereButtonsList = await this.page.$$(ShippingPageConstants.notSelectedAddressShipHereButtonSelector);
         const visibleButtonsList = shipHereButtonsList.filter(async x => await x.isVisible());
@@ -19,7 +19,7 @@ export default class ShippingPage {
         const visibleButtonLocator = visibleButtonsList[Math.floor(Math.random() * visibleButtonsList.length)];
 
         await visibleButtonLocator.click();
-        await this.page.waitForSelector(".loading-mask", { state: 'detached' });
+        await this.page.waitForSelector(ShippingPageConstants.shippingMethodLoaderSelector, { state: 'detached' });
     }
 
     async selectRandomShippingMethod() {

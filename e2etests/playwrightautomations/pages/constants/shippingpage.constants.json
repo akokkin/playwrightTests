@@ -5,5 +5,6 @@
     "addressesListSelector": ".shipping-address-items > div",
     "newAddressButtonSelector": ".new-address-popup>button",
     "shippingMethodSelectButtonSelector": "td.col.col-method>.radio",
-    "nextButtonSelector": ".button.action.continue.primary > span"
+    "nextButtonSelector": ".button.action.continue.primary > span",
+    "shippingMethodLoaderSelector": ".loading-mask"
 }

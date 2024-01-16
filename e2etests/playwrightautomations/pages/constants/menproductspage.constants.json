@@ -5,5 +5,5 @@
     "shoppingCartSelector": ".minicart-wrapper > a",
     "shoppingCartActiveSelector": ".minicart-wrapper.active",
     "cartProceedToCheckoutSelector": "#top-cart-btn-checkout",
-    "counterLoadingClassSelector": ".counter.qty._block-content-loading"
+    "counterLoadingClassSelector": ".loading-mask"
 }
