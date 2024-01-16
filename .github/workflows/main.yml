@@ -37,5 +37,11 @@ jobs:
         with:
           name: Playwright_Screenshots
           path: e2etests/playwrightautomations/screenshots
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: e2etests/playwrightautomations/playwright-report/index.html
+          retention-days: 30
 
-          
+      
