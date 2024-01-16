@@ -40,7 +40,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: playwright-report
+          name: Playwright_report
           path: e2etests/playwrightautomations/playwright-report/index.html
           retention-days: 30
 
