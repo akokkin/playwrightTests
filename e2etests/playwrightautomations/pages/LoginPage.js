@@ -8,7 +8,7 @@ export default class LoginPage {
     }
 
     async navigate() {
-        return this.page.goto(LoginPageConstants.url);
+        return await this.page.goto(LoginPageConstants.url);
     }
 
     async signIn(emailAddress, password) {

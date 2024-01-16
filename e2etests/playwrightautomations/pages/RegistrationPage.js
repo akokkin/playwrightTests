@@ -6,8 +6,8 @@ export default class RegistrationPage {
     this.page = page;
   }
 
-  navigate() {
-    return this.page.goto(RegistrationPageConstants.url);
+  async navigate() {
+    return await this.page.goto(RegistrationPageConstants.url);
   }
 
   async fillRegistrationForm(firstName, lastName, email, password, passwordConfirmation) {

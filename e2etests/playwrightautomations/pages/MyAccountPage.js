@@ -8,8 +8,8 @@ export default class MyAccountPage {
         this.page = page;
     }
 
-    navigate() {
-        return this.page.goto(MyAccountPageConstants.myAccountPageUrl);
+    async navigate() {
+        return await this.page.goto(MyAccountPageConstants.myAccountPageUrl);
     }
 
     async assertRedirectedToMyAccountPage() {

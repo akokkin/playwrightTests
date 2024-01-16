@@ -6,8 +6,8 @@ export default class ShoppingCartPage {
     this.page = page;
   }
 
-  navigate() {
-    return this.page.goto(ShoppingCartPageConstants.url);
+  async navigate() {
+    return await this.page.goto(ShoppingCartPageConstants.url);
   }
 
   async deleteAllProductsFromCart() {

@@ -8,7 +8,7 @@ export default class HomePage {
   }
 
   async navigate() {
-    return this.page.goto(HomepageConstants.url);
+    return await this.page.goto(HomepageConstants.url);
   }
 
   async clickAccountCreationButton() {

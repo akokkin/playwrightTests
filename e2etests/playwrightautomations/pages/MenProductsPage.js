@@ -9,8 +9,8 @@ export default class MenProductsPage {
         this.selectedProduct = {};
     }
 
-    navigate() {
-        return this.page.goto(url);
+    async navigate() {
+        return await this.page.goto(url);
     }
 
     async assertProductsCategoriesListIsVisible() {
@@ -59,11 +59,11 @@ export default class MenProductsPage {
 
     async addProductToCart() {
         await this.page.waitForSelector(productSizeSelector);
-        const sizes = await this.page.$$(productSizeSelector);
+        const sizesList = await this.page.$$(productSizeSelector);
 
-        if (sizes.length > 0) {
-            const randomIndex = Math.floor(Math.random() * sizes.length);
-            const randomSize = sizes[randomIndex];
+        if (sizesList.length > 0) {
+            const randomIndex = Math.floor(Math.random() * sizesList.length);
+            const randomSize = sizesList[randomIndex];
 
             await randomSize.click();
         } else {
@@ -81,10 +81,11 @@ export default class MenProductsPage {
             console.error('No colors were retrieved')
         }
 
-        await this.page.click(addToCartButtonSelector);
+        await this.page.locator(addToCartButtonSelector).click();
     }
 
     async assertQuickCartProductsCountEqualsOne() {
+        // await this.page.waitForSelector(".action.primary.tocart.disabled", { state: 'detached' });
         await this.page.waitForSelector(cartCounterLoaderSelector, { state: 'detached' });
         const counterText = await this.page.textContent(counterSelector);
 
@@ -96,14 +97,8 @@ export default class MenProductsPage {
     }
 
     async navigateToCheckOut() {
-        await this.page.waitForSelector(shoppingCartSelector, { state: 'visible' });
-
-        const shoppingCartButton = await this.page.$$(shoppingCartSelector);
-        await shoppingCartButton[0].click();
-        await this.page.waitForSelector(shoppingCartActiveSelector);
-        await this.page.waitForSelector(cartProceedToCheckoutSelector);
-        const proceedToCheckoutButton = await this.page.$$(cartProceedToCheckoutSelector);
-        await proceedToCheckoutButton[0].click();
+        await this.page.locator(shoppingCartSelector).click();
+        await this.page.locator(cartProceedToCheckoutSelector).click();
     }
 
     getSelectedProduct() {

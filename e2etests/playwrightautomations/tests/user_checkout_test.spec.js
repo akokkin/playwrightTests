@@ -1,5 +1,4 @@
-import { test, expect } from '@playwright/test';
-import HomePage from '../pages/HomePage';
+import { test } from '@playwright/test';
 import ShippingPage from '../pages/ShippingPage';
 import PurchaseSuccessPage from '../pages/PurchaseSuccessPage';
 import LoginPage from '../pages/LoginPage';
@@ -21,6 +20,7 @@ test('User Checkout Test', async ({ page }) => {
     //Login as a registered user
     await loginPage.navigate();
     await loginPage.signIn(emailAddress, password);
+    
     //Delete any existing items in cart
     await shoppingCartPage.deleteAllProductsFromCart();
 
@@ -49,14 +49,4 @@ test('User Checkout Test', async ({ page }) => {
     await purchaseSuccessPage.validateSuccessfullOrder();
     //Tap on 'Continue Shopping' button.
     await purchaseSuccessPage.clickContinueShoppingButton();
-    //TODO: Fix Click on cart button (whilst in product listing)
-    //TODO: Fix Click on Next (whilst in shipping page)
-
-
-
-
-    //Navigate to 'My Orders'.
-    //Ensure the retrieved details are correct.
-    //Tap on 'View Order' button.
-    //Ensure the retrieved details are correct.
 });

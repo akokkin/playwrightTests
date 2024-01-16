@@ -6,8 +6,8 @@ export default class ShippingPage {
         this.page = page;
     }
 
-    navigate() {
-        return this.page.goto(ShippingPageConstants.url);
+    async navigate() {
+        return await this.page.goto(ShippingPageConstants.url);
     }
 
     async selectRandomAddressItem() {

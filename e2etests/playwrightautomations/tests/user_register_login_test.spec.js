@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 import HomePage from '../pages/HomePage';
 import RegistrationPage from '../pages/RegistrationPage';
 import MyAccountPage from '../pages/MyAccountPage';
@@ -45,7 +45,7 @@ test('User Registration and Authentication', async ({ page }) => {
     //Ensure the form submits successfully and creates a new account.
     //Ensure the user is logged in and navigated to their account page.
     await myAccountPage.assertRedirectedToMyAccountPage();
-    
+
     //Log out, and assert homepage is show after 5 seconds.
     await myAccountPage.signOut();
     setTimeout(() => { }, 5100)
@@ -58,7 +58,7 @@ test('User Registration and Authentication', async ({ page }) => {
     //Ensure the login form accepts valid email address and password.
     await loginPage.signIn(incorrectEmailAddress, incorrectPassword);
     await loginPage.waitForInvalidEmailAddressError();
-    
+
     //Both fields should be completed with existing user's credentials.
     await loginPage.signIn(randomNewEmailAddress, correctPassword);
 
