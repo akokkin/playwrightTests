@@ -12,32 +12,36 @@ export default class ShippingPage {
     }
 
     async selectRandomAddressItem() {
-        await this.page.waitForSelector(ShippingPageConstants.addressesListSelector, { state: 'visible' });
-        const addressItemsList = await this.page.$$(ShippingPageConstants.addressesListSelector);
-        expect(addressItemsList.length).toBeGreaterThan(0);
-        const randomAddressItem = addressItemsList[Math.floor(Math.random() * addressItemsList.length)];
-        await randomAddressItem.click();
+        await this.page.waitForSelector(ShippingPageConstants.notSelectedAddressShipHereButtonSelector, { state: 'attached' });
+        const shipHereButtonsList = await this.page.$$(ShippingPageConstants.notSelectedAddressShipHereButtonSelector);
+        const visibleButtonsList = shipHereButtonsList.filter(async x => await x.isVisible());
+        expect(visibleButtonsList.length).toBeGreaterThan(0);
+        const visibleButtonLocator = visibleButtonsList[Math.floor(Math.random() * visibleButtonsList.length)];
+
+        await visibleButtonLocator.click();
+        await this.page.waitForSelector(".loading-mask", { state: 'detached' });
     }
 
     async selectRandomShippingMethod() {
-        await this.page.waitForSelector(ShippingPageConstants.shippingMethodSelectButtonSelector, { state: 'visible' });
-        const shippingMethodItemsList = await this.page.$$(ShippingPageConstants.shippingMethodSelectButtonSelector);
-        expect(shippingMethodItemsList.length).toBeGreaterThan(0);
-        const randomShippingMethod = shippingMethodItemsList[Math.floor(Math.random() * shippingMethodItemsList.length)];
-        await randomShippingMethod.click();
+        await this.page.waitForSelector(ShippingPageConstants.shippingMethodSelectButtonSelector);
+        const shippingMethodCheckboxList = await this.page.$$(ShippingPageConstants.shippingMethodSelectButtonSelector);
+        expect(shippingMethodCheckboxList.length).toBeGreaterThan(0);
+        const randomShippingMethod = shippingMethodCheckboxList[Math.floor(Math.random() * shippingMethodCheckboxList.length)];
+
+        await randomShippingMethod.click({ "force": true });
     }
 
-    async clickNextButton() {
-        await this.page.waitForSelector(ShippingPageConstants.nextButtonSelector);
+    async proceedToPayment() {
+        await this.page.waitForSelector(ShippingPageConstants.nextButtonSelector, { state: 'visible' });
 
         // await this.page.waitForSelector(ShippingPageConstants.nextButtonSelector);
         await this.page.locator(ShippingPageConstants.nextButtonSelector).click();
     }
 
     async selectRandomAddressAndShipping() {
-        this.selectRandomAddressItem();
-        this.selectRandomShippingMethod();
-        this.clickNextButton()
-        await this.page.waitForURL(PaymentPageConstants.url);
+        await this.selectRandomAddressItem();
+        await this.selectRandomShippingMethod();
+        await this.proceedToPayment()
+        await this.page.waitForNavigation();
     }
 }

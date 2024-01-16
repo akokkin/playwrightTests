@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { URL } from 'url';
 import MenProductsPageConstants from './constants/menproductspage.constants.json'
-const { url, counterSelector, productsSidebarSelector, cartCountLoadingSelector, shoppingCartSelector, shoppingCartActiveSelector, cartProceedToCheckoutSelector } = MenProductsPageConstants;
+const { url, counterSelector, shoppingCartSelector, shoppingCartActiveSelector, cartProceedToCheckoutSelector, counterLoadingClassSelector } = MenProductsPageConstants;
 
 export default class MenProductsPage {
     constructor(page) {
@@ -91,7 +91,7 @@ export default class MenProductsPage {
     }
 
     async assertQuickCartProductsCountEqualsOne() {
-        await this.page.waitForFunction(() => !document.body.classList.contains('ajax-loading'));
+        await this.page.waitForSelector(counterLoadingClassSelector, { state: 'detached' });
         const counterText = await this.page.textContent(counterSelector);
 
         if (counterText != null) {

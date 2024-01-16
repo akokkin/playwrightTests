@@ -5,5 +5,5 @@
     "shoppingCartSelector": ".minicart-wrapper > a",
     "shoppingCartActiveSelector": ".minicart-wrapper.active",
     "cartProceedToCheckoutSelector": "#top-cart-btn-checkout",
-    "cartCountLoadingSelector": ".page-product-configurable.catalog-product-view.product-atlas-fitness-tank.categorypath-men-tops-men.category-tops-men.page-layout-1column.ajax-loading"
+    "counterLoadingClassSelector": ".counter.qty._block-content-loading"
 }
