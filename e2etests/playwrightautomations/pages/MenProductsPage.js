@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { URL } from 'url';
 import MenProductsPageConstants from './constants/menproductspage.constants.json'
-const { url, counterSelector, shoppingCartSelector, shoppingCartActiveSelector, cartProceedToCheckoutSelector, counterLoadingClassSelector: cartCounterLoaderSelector } = MenProductsPageConstants;
+const { addToCartButtonSelector, productSizeSelector, productColorSelector, productNameSelector, productPriceSelector, productListingSelector, productsGridSelector, randomProductCategorySelector, url, counterSelector, shoppingCartSelector, shoppingCartActiveSelector, cartProceedToCheckoutSelector, cartCounterLoaderSelector } = MenProductsPageConstants;
 
 export default class MenProductsPage {
     constructor(page) {
@@ -24,15 +24,15 @@ export default class MenProductsPage {
     }
 
     async navigateToRandomProductCategory() {
-        await this.page.waitForSelector('#narrow-by-list2 > dd >.items > li > a');
-        const children = await this.page.$$('#narrow-by-list2 > dd >.items > li > a');
+        await this.page.waitForSelector(randomProductCategorySelector);
+        const productCategoriesList = await this.page.$$(randomProductCategorySelector);
 
-        if (children.length > 0) {
-            const randomIndex = Math.floor(Math.random() * children.length);
-            const randomChild = children[randomIndex];
+        if (productCategoriesList.length > 0) {
+            const randomIndex = Math.floor(Math.random() * productCategoriesList.length);
+            const randomCategory = productCategoriesList[randomIndex];
 
-            await randomChild.click();
-            await this.page.isVisible('.products.wrapper.grid.products-grid');
+            await randomCategory.click();
+            await this.page.isVisible(productsGridSelector);
 
         } else {
             console.error('No child elements found in products categories');
@@ -40,26 +40,26 @@ export default class MenProductsPage {
     }
 
     async navigateToRandomProductDetailsPage() {
-        await this.page.waitForSelector('.products.list.items.product-items > .item.product.product-item > .product-item-info > a');
-        const children = await this.page.$$('.products.list.items.product-items > .item.product.product-item > .product-item-info > a');
+        await this.page.waitForSelector(productListingSelector);
+        const productsList = await this.page.$$(productListingSelector);
 
-        if (children.length > 0) {
-            const randomIndex = Math.floor(Math.random() * children.length);
-            const randomChild = children[randomIndex];
+        if (productsList.length > 0) {
+            const randomIndex = Math.floor(Math.random() * productsList.length);
+            const randomProduct = productsList[randomIndex];
 
-            await randomChild.click();
-            await this.page.waitForSelector(".product-info-main span.price")
+            await randomProduct.click();
+            await this.page.waitForSelector(productPriceSelector)
 
-            this.selectedProduct.price = await this.page.textContent(".product-info-main span.price");
-            this.selectedProduct.name = await this.page.textContent(".page-title> .base");
+            this.selectedProduct.price = await this.page.textContent(productPriceSelector);
+            this.selectedProduct.name = await this.page.textContent(productNameSelector);
         } else {
             console.error('No child elements found in products list');
         }
     }
 
     async addProductToCart() {
-        await this.page.waitForSelector('.swatch-option.text');
-        const sizes = await this.page.$$('.swatch-option.text');
+        await this.page.waitForSelector(productSizeSelector);
+        const sizes = await this.page.$$(productSizeSelector);
 
         if (sizes.length > 0) {
             const randomIndex = Math.floor(Math.random() * sizes.length);
@@ -70,7 +70,7 @@ export default class MenProductsPage {
             console.error('No sizes were retrieved')
         }
 
-        const colors = await this.page.$$('.swatch-option.color');
+        const colors = await this.page.$$(productColorSelector);
 
         if (colors.length > 0) {
             const randomIndex = Math.floor(Math.random() * colors.length);
@@ -81,13 +81,7 @@ export default class MenProductsPage {
             console.error('No colors were retrieved')
         }
 
-        await this.page.click('#product-addtocart-button');
-
-        const element = await this.page.$$('div > a > span.counter.qty._block-content-loading');
-
-        if (element.length > 0) {
-            await this.page.$$('div > a > span.counter.qty:not(._block-content-loading)');
-        }
+        await this.page.click(addToCartButtonSelector);
     }
 
     async assertQuickCartProductsCountEqualsOne() {

@@ -9,9 +9,9 @@ export default class PurchaseSuccessPage {
     async validateSuccessfullOrder() {
         await this.page.waitForURL(PurchaseSuccessPageConstants.url, { waitUntil: 'domcontentloaded' });
         await this.page.waitForSelector(PurchaseSuccessPageConstants.successPageTitleSelector);
-        expect(await this.page.locator(PurchaseSuccessPageConstants.successPageTitleSelector)).toHaveText('Thank you for your purchase!');
-        expect(await this.page.locator(PurchaseSuccessPageConstants.orderNumberSelector)).toContainText('Your order number is:');
-        expect(await this.page.locator(PurchaseSuccessPageConstants.emailConfirmationTextSelector)).toHaveText('We\'ll email you an order confirmation with details and tracking info.');
+        expect(await this.page.locator(PurchaseSuccessPageConstants.successPageTitleSelector)).toHaveText(PurchaseSuccessPageConstants.thankYouTitleText);
+        expect(await this.page.locator(PurchaseSuccessPageConstants.orderNumberSelector)).toContainText(PurchaseSuccessPageConstants.orderNumberText);
+        expect(await this.page.locator(PurchaseSuccessPageConstants.emailConfirmationTextSelector)).toHaveText(PurchaseSuccessPageConstants.orderDetailsText);
     }
 
     async clickContinueShoppingButton() {

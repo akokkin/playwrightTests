@@ -1,6 +1,4 @@
-import exp from 'constants';
 import PaymentPageConstants from './constants/paymentpage.constants.json';
-import PurchaseSuccessPageConstants from './constants/purchasesuccesspage.constants.json';
 import { expect } from "@playwright/test";
 
 export default class PaymentPage {
@@ -33,6 +31,5 @@ export default class PaymentPage {
 
     async placeOrder() {
         await this.page.locator(PaymentPageConstants.placeOrderButtonSelector).click();
-        // await this.page.waitForNavigation();
     }
 }

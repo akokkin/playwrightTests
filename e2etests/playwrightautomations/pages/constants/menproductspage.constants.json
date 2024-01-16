@@ -5,5 +5,13 @@
     "shoppingCartSelector": ".minicart-wrapper > a",
     "shoppingCartActiveSelector": ".minicart-wrapper.active",
     "cartProceedToCheckoutSelector": "#top-cart-btn-checkout",
-    "counterLoadingClassSelector": ".loading-mask"
+    "cartCounterLoaderSelector": ".loading-mask",
+    "randomProductCategorySelector": "#narrow-by-list2 > dd >.items > li > a",
+    "productsGridSelector": ".products.wrapper.grid.products-grid",
+    "productListingSelector": ".products.list.items.product-items > .item.product.product-item > .product-item-info > a",
+    "productPriceSelector": ".product-info-main span.price",
+    "productNameSelector": "h1.page-title> .base",
+    "productSizeSelector": ".swatch-option.text",
+    "productColorSelector": ".swatch-option.color",
+    "addToCartButtonSelector": "#product-addtocart-button"
 }
